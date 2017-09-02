@@ -1,6 +1,7 @@
 
 group 'com.example'
 version '0.1-SNAPSHOT'
+
 import org.gradle.internal.os.OperatingSystem
 apply plugin: 'groovy'
 
@@ -50,20 +51,20 @@ tasks.withType(Test) {
 }
 
 task unzipGeckoDriver(type: Copy) {
-    def driverVersion = "v0.18"
+    def driverVersion = "v0.18.0"
     def outputDir = file("$buildDir/webdriver/geckodriver")
     outputs.dir(outputDir)
     if( OperatingSystem.current().isWindows()){
         from(zipTree("drivers/geckodriver-${driverVersion}-win64.zip"))
     } else {
-        from(zipTree("drivers/geckodriver-${driverVersion}-macos.tar.gz"))
+        from(tarTree("drivers/geckodriver-${driverVersion}-macos.tar.gz"))
     }
     into(outputDir)
 }
 
-firefoxTest (type: Test) {
+task firefoxTest(type: Test) {
     dependsOn unzipGeckoDriver
-    def geckodriverFilename = OperatingSystem.isWindows() ? "geckodriver.exe" : "geckodriver"
+    def geckodriverFilename = OperatingSystem.current().isWindows() ? "geckodriver.exe" : "geckodriver"
     def geckodriverFile = new File(unzipGeckoDriver.outputs.files.singleFile, geckodriverFilename)
     systemProperty("webdriver.gecko.driver", geckodriverFile.absolutePath)
 
