@@ -45,7 +45,9 @@ tasks.withType(Test) {
     testLogging {
         events 'started', 'passed'
     }
-    outputs.upToDateWhen { false }
+	println name
+
+	outputs.upToDateWhen { false }
     maxParallelForks = 2
     //forkEvery = 2
 }
@@ -60,12 +62,14 @@ task unzipGeckoDriver(type: Copy) {
         from(tarTree("drivers/geckodriver-${driverVersion}-macos.tar.gz"))
     }
     into(outputDir)
+	println name
 }
+
+
 
 task firefoxTest(type: Test) {
     dependsOn unzipGeckoDriver
     def geckodriverFilename = OperatingSystem.current().isWindows() ? "geckodriver.exe" : "geckodriver"
     def geckodriverFile = new File(unzipGeckoDriver.outputs.files.singleFile, geckodriverFilename)
     systemProperty("webdriver.gecko.driver", geckodriverFile.absolutePath)
-
 }
