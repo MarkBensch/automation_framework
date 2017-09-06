@@ -15,7 +15,7 @@ class BaseGebSpec extends GebSpec{
 
 	def setup(){
 		logger = LogManager.getRootLogger()
-
+		//logger.info(driver.isJavascriptEnabled )
 	}
 
 	def cleanup() {

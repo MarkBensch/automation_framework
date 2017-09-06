@@ -6,7 +6,7 @@ class ExampleSpec extends BaseGebSpec{
 	def "go to google and pass the test"() {
 
 		when:
-			go "http://www.google.com"
+			go "https://docs.gradle.org/current/release-notes.html"
 
 		then:
 
@@ -16,7 +16,7 @@ class ExampleSpec extends BaseGebSpec{
 	def "go to google and the test will fail"() {
 
 		when:
-			go "http://www.google.com"
+			go "http://www.apple.com"
 		then:
 
 			1==2

@@ -45,9 +45,9 @@ dependencies {
 
 // webdriver framework
     testCompile "org.gebish:geb-spock:$gebVersion"
-//    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$driverVersion"
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$driverVersion"
 	testCompile "org.seleniumhq.selenium:selenium-safari-driver:$driverVersion"
-//	testCompile 'org.seleniumhq.selenium:htmlunit-driver:2.27' //Never uncomment this code as it will infect and destroy all your hopes and dreams as everything will be unit driver... no choices and no fucks given!!!
+	testCompile 'org.seleniumhq.selenium:htmlunit-driver:2.27' //Never uncomment this code as it will infect and destroy all your hopes and dreams as everything will be unit driver... no choices and no fucks given!!!
 
 }
 
@@ -81,7 +81,7 @@ tasks.withType(Test) {
 		junitXml.destination = file("$buildDir/test-results/$name")
 	}
 	println name
-	systemProperty("geb.env", "Firefox")
+	systemProperty("geb.env", "HtmlUnit")
 	outputs.upToDateWhen { false }
     //maxParallelForks = 2
     //forkEvery = 2
