@@ -7,15 +7,15 @@ import org.openqa.selenium.logging.LogEntries
 import org.openqa.selenium.logging.LogType
 import spock.lang.Shared
 
-import java.util.logging.Level
-
 class BaseGebSpec extends GebSpec{
 	@Shared
 	Logger logger
 
 	def setup(){
-		logger = LogManager.getRootLogger()
-		//logger.info(driver.isJavascriptEnabled )
+		logger = LogManager.getLogger(getClass().name)
+		logger.info(System.getProperty("geb.env"))
+		logger.info(driver)
+		logger.info(System.getProperty("geb.remote"))
 	}
 
 	def cleanup() {

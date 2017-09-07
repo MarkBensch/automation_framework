@@ -47,6 +47,7 @@ dependencies {
     testCompile "org.gebish:geb-spock:$gebVersion"
     testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$driverVersion"
 	testCompile "org.seleniumhq.selenium:selenium-safari-driver:$driverVersion"
+	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$driverVersion"
 	testCompile 'org.seleniumhq.selenium:htmlunit-driver:2.27' //Never uncomment this code as it will infect and destroy all your hopes and dreams as everything will be unit driver... no choices and no fucks given!!!
 
 }
@@ -67,9 +68,20 @@ task unzipGeckoDriver(type: Copy) {
 		from(tarTree("drivers/geckodriver-${gechoVersion}-macos.tar.gz"))
 	}
 	into(outputDir)
-	println name
 }
 
+
+task unzipChromeDriver(type: Copy) {
+		//https://sites.google.com/a/chromium.org/chromedriver/downloads
+		def outputDir = file("$buildDir/webdriver/chromedriver")
+		outputs.dir(outputDir)
+		if( OperatingSystem.current().isWindows()){
+			from(zipTree("drivers/chromedriver_win32.zip"))
+		} else {
+			from(zipTree("drivers/chromedriver_mac64.zip"))
+		}
+		into(outputDir)
+}
 
 //modify all testing tasks
 tasks.withType(Test) {
@@ -96,8 +108,28 @@ task firefoxTest(type: Test) {
 }
 
 task safariTest(type: Test) {
-	if (!OperatingSystem.current().isMacOsX()) {
-		throw new GradleException('this is not a mac.\nNo Safari available to run')
-	}
 	systemProperty("geb.env", "Safari")
+}
+
+task chromeTest(type: Test) {
+	dependsOn unzipChromeDriver
+	def chromedriverFilename = OperatingSystem.current().isWindows() ? "chromedriver.exe" : "chromedriver"
+	def chromedriverFile = new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename)
+	systemProperty("webdriver.chrome.driver", chromedriverFile.absolutePath)
+	systemProperty("geb.env", "Chrome")
+}
+
+task saucelabTest(type: Test){
+	systemProperty("geb.env", "SauceLab")
+	//TODO: Come back and do this right
+	// <<browser>>:<<os>>:<<version>>
+	systemProperty("geb.remoteServer", "chrome:52.0:Windows 10")
+
+}
+
+task browserstackTest(type: Test){
+	systemProperty("geb.env", "BrowserStack")
+	//TODO: Come back and do this right
+	// <<browser>>:<<os>>:<<version>>
+	systemProperty("geb.remoteServer", "chrome:52.0:Windows")
 }
