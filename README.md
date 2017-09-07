@@ -36,8 +36,12 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
 
 ### Links to stuff
 https://guides.github.com/features/mastering-markdown/
+
 http://groovyconsole.appspot.com/
+
+https://webkit.org/blog/6900/webdriver-support-in-safari-10/
 
 https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/
 https://wiki.saucelabs.com/display/DOCS/Java+Test+Setup+Example
 https://wiki.saucelabs.com/display/DOCS/Java+Example+Script+for+Android+Mobile+Application+Tests
+
