@@ -50,6 +50,9 @@ dependencies {
     testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$driverVersion"
 	testCompile "org.seleniumhq.selenium:selenium-safari-driver:$driverVersion"
 	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$driverVersion"
+	testCompile "org.seleniumhq.selenium:selenium-edge-driver:$driverVersion"
+	testCompile "org.seleniumhq.selenium:selenium-ie-driver:$driverVersion"
+	testCompile "org.seleniumhq.selenium:selenium-remote-driver:$driverVersion"
 	testCompile "org.seleniumhq.selenium:htmlunit-driver:$htmlUnitDriverVersion"
 	testCompile "io.appium:java-client:$appiumDriverVersion"
 }
@@ -83,6 +86,26 @@ task unzipChromeDriver(type: Copy) {
 			from(zipTree("drivers/chromedriver_mac64.zip"))
 		}
 		into(outputDir)
+}
+
+task unzipIEDriver(type: Copy) {
+	//http://docs.seleniumhq.org/download/
+	def outputDir = file("$buildDir/webdriver/IEdriver")
+	outputs.dir(outputDir)
+
+	from(zipTree("drivers/IEDriverServer_x64_3.5.1.zip"))
+
+	into(outputDir)
+}
+
+task unzipEdgeDriver(type: Copy) {
+	//https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+	def outputDir = file("$buildDir/webdriver/Edgedriver")
+	outputs.dir(outputDir)
+
+	from("drivers/MicrosoftWebDriver.exe")
+
+	into(outputDir)
 }
 
 //modify all testing tasks
@@ -120,6 +143,20 @@ task chromeTest(type: Test) {
 	systemProperty("webdriver.chrome.driver", chromedriverFile.absolutePath)
 	systemProperty("geb.env", "Chrome")
 }
+task ieTest(type: Test) {
+	dependsOn unzipIEDriver
+	def iedriverFilename = OperatingSystem.current().isWindows() ? "IEDriverServer.exe" : ""
+	def iedriverFile = new File(unzipIEDriver.outputs.files.singleFile, iedriverFilename)
+	systemProperty("webdriver.ie.driver", iedriverFile.absolutePath)
+	systemProperty("geb.env", "IE")
+}
+task edgeTest(type: Test) {
+	dependsOn unzipEdgeDriver
+	def edgedriverFilename = OperatingSystem.current().isWindows() ? "MicrosoftWebDriver.exe" : ""
+	def edgedriverFile = new File(unzipEdgeDriver.outputs.files.singleFile, edgedriverFilename)
+	systemProperty("webdriver.edge.driver", edgedriverFile.absolutePath)
+	systemProperty("geb.env", "Edge")
+}
 
 task saucelabTest(type: Test){
 	systemProperty("geb.env", "SauceLab")
@@ -153,3 +190,9 @@ task browserstackMobileTest(type: Test){
 	systemProperty("geb.remoteMobile", "ios:10.0:iPhone:portrait:iPhone 7:1.6.5:true")
 }
 
+// IE sucks and leaves stuff running
+task killIE(type: Exec) {
+	commandLine  'cmd', '/c', 'taskkill /f /im "iexplore.exe"'
+}
+
+ieTest.finalizedBy killIE

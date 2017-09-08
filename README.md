@@ -4,8 +4,8 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
 ### TODO:
 * multi-browser execute not just FF
     * ~~Chrome~~
-    * Edge
-    * IE? 
+    * ~~Edge~~
+    * IE?
     * ~~Safari~~
     * ~~Headless (HtmlUnitDriver)~~
 * Remote driver execution
@@ -17,7 +17,7 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
     * ~~BrowserStack~~
     * ~~SauceLabs~~ 
 * Config File
-* Gradle cleanup
+* Gradle cleanup --- really need to do this starting to get out of hand
 * API work 
     * not sure what this will be
 * database connection

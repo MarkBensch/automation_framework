@@ -3,8 +3,10 @@ import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.ios.IOSDriver
 import org.apache.commons.logging.LogFactory
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.edge.EdgeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
+import org.openqa.selenium.ie.InternetExplorerDriver
 import org.openqa.selenium.logging.LogType
 import org.openqa.selenium.logging.LoggingPreferences
 import org.openqa.selenium.remote.CapabilityType
@@ -32,9 +34,21 @@ environments{
 		driver = { new SafariDriver(caps) }
 	}
 	Chrome {
-		caps = DesiredCapabilities()
+		caps = DesiredCapabilities.chrome()
 		caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs)
 		driver = { new ChromeDriver(caps) }
+	}
+	IE {
+		caps = DesiredCapabilities.internetExplorer()
+		caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs)
+		caps.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true)
+		caps.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true)
+		driver = { new InternetExplorerDriver(caps) }
+	}
+	Edge {
+		caps = DesiredCapabilities.edge()
+		caps.setCapability(CapabilityType.LOGGING_PREFS, logPrefs)
+		driver = { new EdgeDriver(caps) }
 	}
 	SauceLab {
 		//TODO: come up with a parser for geb.remote list of caps and setting
@@ -127,5 +141,7 @@ environments{
 		driver = { new HtmlUnitDriver(caps) }
 	}
 }
+
+
 
 
