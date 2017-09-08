@@ -14,8 +14,8 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
     * ~~sauce Labs~~
 * Mobile (Appium)
     * Local
-    * BrowserStack
-    * SauceLabs 
+    * ~~BrowserStack~~
+    * ~~SauceLabs~~ 
 * Config File
 * Gradle cleanup
 * API work 
@@ -45,3 +45,4 @@ https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/
 https://wiki.saucelabs.com/display/DOCS/Java+Test+Setup+Example
 https://wiki.saucelabs.com/display/DOCS/Java+Example+Script+for+Android+Mobile+Application+Tests
 
+https://www.browserstack.com/automate/junit   --Scroll about half way down

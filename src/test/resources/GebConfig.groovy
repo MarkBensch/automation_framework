@@ -1,4 +1,6 @@
 import com.gargoylesoftware.htmlunit.BrowserVersion
+import io.appium.java_client.android.AndroidDriver
+import io.appium.java_client.ios.IOSDriver
 import org.apache.commons.logging.LogFactory
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
@@ -38,7 +40,7 @@ environments{
 		//TODO: come up with a parser for geb.remote list of caps and setting
 		// geb.remote = <<browser>>:<<version>>:<<platform>>
 		def remoteCapabilities = System.getProperty("geb.remoteServer").split(/(:|;|,)/)
-		caps = DesiredCapabilities()
+		caps = new DesiredCapabilities()
 		caps.setCapability(BROWSER_NAME, remoteCapabilities[0])
 		caps.setCapability(VERSION, remoteCapabilities[1])
 		caps.setCapability(PLATFORM, remoteCapabilities[2])
@@ -54,20 +56,61 @@ environments{
 		//TODO: come up with a parser for geb.remoteServer list of caps and setting
 		// geb.remoteServer = <<browser>>:<<version>>:<<platform>>
 		def remoteCapabilities = System.getProperty("geb.remoteServer").split(/(:|;|,)/)
-		caps = DesiredCapabilities.chrome()
+		caps = new DesiredCapabilities()
 		caps.setCapability(BROWSER_NAME, remoteCapabilities[0])
 		caps.setCapability(VERSION, remoteCapabilities[1])
 		caps.setCapability(PLATFORM, remoteCapabilities[2])
 		def username = ""
 		def accessKey = ""
-		def saucelabURL = "http://$username:$accessKey@hub-cloud.browserstack.com/wd/hub"
+		def browserstackURL = "http://$username:$accessKey@hub-cloud.browserstack.com/wd/hub"
 		driver = {
-			def remoteWebDriverServerUrl = new URL(saucelabURL)
+			def remoteWebDriverServerUrl = new URL(browserstackURL)
 			new RemoteWebDriver(remoteWebDriverServerUrl, caps)
 		}
 	}
 	Grid {
 
+	}
+	MobileSauceLab {
+		// <<platformName>>:<<platformVersion>>:<<browserName>>:<<deviceOrientation>>:<<deviceName>>:<<appiumVersion>>
+		def remoteCapabilities = System.getProperty("geb.remoteMobile").split(/(:|;|,)/)
+		caps = new DesiredCapabilities()
+		caps.setCapability("platformName", remoteCapabilities[0])
+		caps.setCapability("platformVersion", remoteCapabilities[1])
+		caps.setCapability("browserName", remoteCapabilities[2])
+		caps.setCapability("deviceOrientation", remoteCapabilities[3])
+		caps.setCapability("deviceName", remoteCapabilities[4])
+		caps.setCapability("appiumVersion", remoteCapabilities[5])
+		def username = ""
+		def accessKey = ""
+		def saucelabURL = "http://$username:$accessKey@ondemand.saucelabs.com:80/wd/hub"
+		def remoteWebDriverServerUrl = new URL(saucelabURL)
+		if (remoteCapabilities[0] == "Android") {
+			driver = { new AndroidDriver<>(remoteWebDriverServerUrl, caps) }
+		} else {
+			driver = { new IOSDriver<>(remoteWebDriverServerUrl, caps) }
+		}
+	}
+	MobileBrowserStack {
+		// <<os>>:<<os_version>>:<<browser>>:<<deviceOrientation>>:<<deviceName>>:<<appiumVersion>>:<<realMobile>>
+		def remoteCapabilities = System.getProperty("geb.remoteMobile").split(/(:|;|,)/)
+		caps = new DesiredCapabilities()
+		caps.setCapability("os", remoteCapabilities[0])
+		caps.setCapability("os_version", remoteCapabilities[1])
+		caps.setCapability("browser", remoteCapabilities[2])
+		caps.setCapability("deviceOrientation", remoteCapabilities[3])
+		caps.setCapability("device", remoteCapabilities[4])
+		caps.setCapability("browserstack.appium_version", remoteCapabilities[5])
+		caps.setCapability("realMobile", remoteCapabilities[6])
+		def username = ""
+		def accessKey = ""
+		def browserstackURL = "http://$username:$accessKey@hub-cloud.browserstack.com/wd/hub"
+		def remoteWebDriverServerUrl = new URL(browserstackURL)
+		if (remoteCapabilities[0] == "android") {
+			driver = { new AndroidDriver<>(remoteWebDriverServerUrl, caps) }
+		} else {
+			driver = { new IOSDriver<>(remoteWebDriverServerUrl, caps) }
+		}
 	}
 	HtmlUnit {
 		//This Section makes Unit Driver not so loud unless it needs to be

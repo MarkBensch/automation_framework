@@ -15,6 +15,8 @@ ext {
 	spockReportVersion = '1.2.12'
 	spockVersion = '1.1-groovy-2.4-rc-2'
 	gebVersion = '1.1.1'
+	htmlUnitDriverVersion = '2.27'
+	appiumDriverVersion = '5.0.2'
 }
 
 repositories {
@@ -48,8 +50,8 @@ dependencies {
     testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$driverVersion"
 	testCompile "org.seleniumhq.selenium:selenium-safari-driver:$driverVersion"
 	testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$driverVersion"
-	testCompile 'org.seleniumhq.selenium:htmlunit-driver:2.27' //Never uncomment this code as it will infect and destroy all your hopes and dreams as everything will be unit driver... no choices and no fucks given!!!
-
+	testCompile "org.seleniumhq.selenium:htmlunit-driver:$htmlUnitDriverVersion"
+	testCompile "io.appium:java-client:$appiumDriverVersion"
 }
 
 //run tests with JUnit categories
@@ -127,9 +129,27 @@ task saucelabTest(type: Test){
 
 }
 
+task saucelabMobileTest(type: Test){
+	systemProperty("geb.env", "MobileSauceLab")
+	//TODO: Come back and do this right
+	// <<platformName>>:<<platformVersion>>:<<browserName>>:<<deviceOrientation>>:<<deviceName>>:<<appiumVersion>>
+	//systemProperty("geb.remoteMobile", "Android:7.1:Chrome:portrait:Android GoogleAPI Emulator:1.6.5")
+	systemProperty("geb.remoteMobile", "iOS:10.3:Safari:portrait:iPhone 7 Simulator:1.6.5")
+
+
+}
 task browserstackTest(type: Test){
 	systemProperty("geb.env", "BrowserStack")
 	//TODO: Come back and do this right
 	// <<browser>>:<<os>>:<<version>>
 	systemProperty("geb.remoteServer", "chrome:52.0:Windows")
 }
+
+task browserstackMobileTest(type: Test){
+	systemProperty("geb.env", "MobileBrowserStack")
+	//TODO: Come back and do this right
+	// <<os>>:<<os_version>>:<<browser>>:<<deviceOrientation>>:<<deviceName>>:<<appiumVersion>>:<<realMobile>>
+	//systemProperty("geb.remoteMobile", "android:8.0:Android:portrait:Google Pixel:1.4.16:true")
+	systemProperty("geb.remoteMobile", "ios:10.0:iPhone:portrait:iPhone 7:1.6.5:true")
+}
+
