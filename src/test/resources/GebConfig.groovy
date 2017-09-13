@@ -19,11 +19,11 @@ import java.util.logging.Level
 
 import static org.openqa.selenium.remote.CapabilityType.*
 
-def config = new ConfigLoader().config()
 
 
 
-baseUrl = config.ui.baseUrl
+
+baseUrl = ConfigLoader.config().ui.baseUrl
 
 waiting {
 	timeout = 10
@@ -74,8 +74,8 @@ environments{
 		caps.setCapability(BROWSER_NAME, remoteCapabilities[0])
 		caps.setCapability(VERSION, remoteCapabilities[1])
 		caps.setCapability(PLATFORM, remoteCapabilities[2])
-		def username = config.ui.saucelabs.username
-		def accessKey = config.ui.saucelabs.accessKey
+		def username = ConfigLoader.config().ui.saucelabs.username
+		def accessKey = ConfigLoader.config().ui.saucelabs.accessKey
 		def saucelabURL = "http://$username:$accessKey@ondemand.saucelabs.com:80/wd/hub"
 		driver = {
 			def remoteWebDriverServerUrl = new URL(saucelabURL)
@@ -90,8 +90,8 @@ environments{
 		caps.setCapability(BROWSER_NAME, remoteCapabilities[0])
 		caps.setCapability(VERSION, remoteCapabilities[1])
 		caps.setCapability(PLATFORM, remoteCapabilities[2])
-		def username = config.ui.browserstack.username
-		def accessKey = config.ui.browserstack.accessKey
+		def username = ConfigLoader.config().ui.browserstack.username
+		def accessKey = ConfigLoader.config().ui.browserstack.accessKey
 		def browserstackURL = "http://$username:$accessKey@hub-cloud.browserstack.com/wd/hub"
 		driver = {
 			def remoteWebDriverServerUrl = new URL(browserstackURL)
@@ -111,8 +111,8 @@ environments{
 		caps.setCapability("deviceOrientation", remoteCapabilities[3])
 		caps.setCapability("deviceName", remoteCapabilities[4])
 		caps.setCapability("appiumVersion", remoteCapabilities[5])
-		def username = config.ui.saucelabs.username
-		def accessKey = config.ui.saucelabs.accessKey
+		def username = ConfigLoader.config().ui.saucelabs.username
+		def accessKey = ConfigLoader.config().ui.saucelabs.accessKey
 		def saucelabURL = "http://$username:$accessKey@ondemand.saucelabs.com:80/wd/hub"
 		def remoteWebDriverServerUrl = new URL(saucelabURL)
 		if (remoteCapabilities[0] == "Android") {
@@ -132,8 +132,8 @@ environments{
 		caps.setCapability("device", remoteCapabilities[4])
 		caps.setCapability("browserstack.appium_version", remoteCapabilities[5])
 		caps.setCapability("realMobile", remoteCapabilities[6])
-		def username = config.ui.browserstack.username
-		def accessKey = config.ui.browserstack.accessKey
+		def username = ConfigLoader.config().ui.browserstack.username
+		def accessKey = ConfigLoader.config().ui.browserstack.accessKey
 		def browserstackURL = "http://$username:$accessKey@hub-cloud.browserstack.com/wd/hub"
 		def remoteWebDriverServerUrl = new URL(browserstackURL)
 		if (remoteCapabilities[0] == "android") {

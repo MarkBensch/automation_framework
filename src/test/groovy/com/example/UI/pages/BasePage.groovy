@@ -1,8 +1,9 @@
 package com.example.UI.pages
 
+import com.example.util.GebHelperTrait
 import geb.Page
 
-class BasePage extends Page{
+class BasePage extends Page implements GebHelperTrait{
 
 	/**
 	 * This is a mouse inter action example for Sliding the mouse

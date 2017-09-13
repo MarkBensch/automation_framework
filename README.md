@@ -16,19 +16,22 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
     * Local
     * ~~BrowserStack~~
     * ~~SauceLabs~~ 
-* Config File
+* ~~Config File~~
 * Gradle cleanup --- really need to do this starting to get out of hand
 * API work 
     * not sure what this will be
 * database connection
 * logging
     * ~~logger is written~~
-    * work on getting it to write to file
-* Test Case Management API 
-    * TestRails
+    * ~~work on getting it to write to file~~
+* ___Test Case Management API___ 
+    * __TestRails__
     * others once i learn about and get time
 * other stuff that I have not thought about at this time
 
+### Run Tests
+
+### Things to change to match project
 
 ### Appium Instructions
 
