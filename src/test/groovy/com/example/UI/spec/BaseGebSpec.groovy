@@ -1,5 +1,6 @@
 package com.example.UI.spec
 
+import com.example.util.ConfigLoader
 import geb.spock.GebSpec
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -9,13 +10,14 @@ import spock.lang.Shared
 
 class BaseGebSpec extends GebSpec{
 	@Shared
-	Logger logger
+	Logger logger = LogManager.getLogger(getClass().name)
+
+	@Shared
+	def config = new ConfigLoader().config()
+
 
 	def setup(){
-		logger = LogManager.getLogger(getClass().name)
-		logger.info(System.getProperty("geb.env"))
-		logger.info(driver)
-		logger.info(System.getProperty("geb.remote"))
+		logger.info("hellllllo world")
 	}
 
 	def cleanup() {

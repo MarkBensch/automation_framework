@@ -1,25 +1,35 @@
 package com.example.UI.spec
 
+import com.example.UI.pages.ExamplePage
+import com.example.UI.pages.ResultsPage
+
 
 class ExampleSpec extends BaseGebSpec{
 
-	def "go to google and pass the test"() {
+	def "go to google search page"() {
 
-		when:
-			go "https://docs.gradle.org/current/release-notes.html"
+		when: "the user navigates to the google search page"
+			to ExamplePage
 
-		then:
-
-			1==1
+		then: "verify using at to make sure we are on the search page"
+			at ExamplePage
 	}
 
-	def "go to google and the test will fail"() {
+	def "do a google search"() {
 
-		when:
-			go "http://www.apple.com"
-		then:
+		when: "navigate to search page"
+			to ExamplePage
 
-			1==2
+		and:"enter a search parameter"
+			search("Chuck Norris")
+
+		then: " check to see if the first item contains something we expect"
+
+			waitFor {
+				at ResultsPage
+				result(0).text().contains("Chuck")
+			}
+
 	}
 
 }
