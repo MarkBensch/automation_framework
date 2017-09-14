@@ -4,7 +4,7 @@ import groovy.util.logging.Log4j2
 import org.spockframework.runtime.model.SpecInfo
 import org.spockframework.runtime.extension.IGlobalExtension
 @Log4j2
-class TestListenerExtention implements IGlobalExtension {
+class TestListenerExtension implements IGlobalExtension {
     void start() {
 
     }
@@ -17,6 +17,8 @@ class TestListenerExtention implements IGlobalExtension {
     void stop() {
 
     }
+
+
 
     /**
      * https://github.com/spockframework/spock/search?utf8=%E2%9C%93&q=IGlobalExtension&type=

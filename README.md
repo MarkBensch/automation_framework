@@ -48,4 +48,10 @@ https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/
 https://wiki.saucelabs.com/display/DOCS/Java+Test+Setup+Example
 https://wiki.saucelabs.com/display/DOCS/Java+Example+Script+for+Android+Mobile+Application+Tests
 
-https://www.browserstack.com/automate/junit   --Scroll about half way down
+https://www.browserstack.com/automate/junit   --Scroll about half way down 
+
+http://docs.groovy-lang.org/latest/html/documentation/#_annotation
+
+https://stackoverflow.com/questions/38145712/is-it-possible-to-log-spock-feature-method-names-and-clause-labels/39529552#39529552
+
+https://github.com/codetojoy/talk_maritimedevcon_groovy/blob/master/exampleB_REST_Client/v2_groovy/RESTClient.groovy
