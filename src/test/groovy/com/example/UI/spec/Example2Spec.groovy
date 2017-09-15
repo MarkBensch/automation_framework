@@ -3,6 +3,7 @@ package com.example.UI.spec
 import com.example.UI.pages.ExamplePage
 import com.example.UI.pages.ResultsPage
 import com.example.util.TestCaseID
+import com.gargoylesoftware.htmlunit.BrowserVersion
 import geb.Browser
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import spock.lang.Title
@@ -46,20 +47,21 @@ class Example2Spec extends BaseGebSpec{
 	@TestCaseID("TC006")
 	def "can i spin up a headless browser to change settings"(){
 		when:
-		def browser2 = new Browser(driver: new FireFoxDriver())
+			def browser2 = new Browser(driver: new HtmlUnitDriver(BrowserVersion.CHROME, true))
 		
 			browser2.to ExamplePage
 			
 			browser2.page.search("speed racer")
-			
+			browser2.page.waitFor {
 				browser2.at ResultsPage
 				browser2.page.result(0).text().contains("Speed")
-			
+			}
 			
 			logger.info(browser2.driver)
 		
 		then:
-			browser2.driver.title == "speed racer - Google Search"
+			browser2.driver.title.contains("speed racer")
+			browser2.quit()
 	}
 
 }
