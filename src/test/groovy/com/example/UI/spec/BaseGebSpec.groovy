@@ -29,7 +29,7 @@ class BaseGebSpec extends GebSpec implements GebHelperTrait{
 					logger.info("[${logEntry.level}] ${logEntry.message}")
 				}
 			}
-			else { logger.info("No Browser errors encountered")}
+			else { logger.info("No Browser JS console errors encountered")}
 		} catch(Exception e){
 			logger.warn("Browser does not support BrowserLogs")
 		}
