@@ -1,8 +1,9 @@
 package com.example.util
 
 import groovy.util.logging.Log4j2
-import org.spockframework.runtime.model.SpecInfo
 import org.spockframework.runtime.extension.IGlobalExtension
+import org.spockframework.runtime.model.SpecInfo
+
 @Log4j2
 class TestListenerExtension implements IGlobalExtension {
     void start() {
@@ -10,7 +11,7 @@ class TestListenerExtension implements IGlobalExtension {
     }
 
     void visitSpec(SpecInfo specInfo) {
-        log.info("I can hear tests")
+        log.debug("i can hear the tests")
         specInfo.addListener(new TestCaseManagerListener())
     }
 

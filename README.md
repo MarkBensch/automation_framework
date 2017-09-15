@@ -2,7 +2,8 @@
 This is a project I am writing so I do not need to reinvent the wheel everytime I need to make automation tests.
 
 ### TODO:
-* multi-browser execute not just FF
+* ability to use different browsers
+    * ~~FireFox~~
     * ~~Chrome~~
     * ~~Edge~~
     * IE?
@@ -21,14 +22,18 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
 * API work 
     * not sure what this will be
 * database connection
+* test filtering
+    * add a gradle condition to set the category filter.
 * logging
     * ~~logger is written~~
     * ~~work on getting it to write to file~~
 * ___Test Case Management API___ 
     * __TestRails__
+        * how and when to make run
+        * get runID
     * others once i learn about and get time
 * second browser Util class
-    * __can i run a second browser__ - yes see TC006 
+    * ~~can i run a second browser~~ - yes see TC006 
     * make class layout
 * other stuff that I have not thought about at this time
 
