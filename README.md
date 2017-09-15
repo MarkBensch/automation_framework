@@ -27,6 +27,9 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
 * ___Test Case Management API___ 
     * __TestRails__
     * others once i learn about and get time
+* second browser Util class
+    * __can i run a second browser__ - yes see TC006 
+    * make class layout
 * other stuff that I have not thought about at this time
 
 ### Run Tests
