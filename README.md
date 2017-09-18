@@ -31,6 +31,7 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
     * __TestRails__
         * how and when to make run
         * get runID
+        * when to get testcases to make run
     * others once i learn about and get time
 * second browser Util class
     * ~~can i run a second browser~~ - yes see TC006 
