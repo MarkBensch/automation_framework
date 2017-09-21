@@ -7,19 +7,23 @@ import org.spockframework.runtime.model.FeatureInfo
 import org.spockframework.runtime.model.IterationInfo
 import org.spockframework.runtime.model.SpecInfo
 
+
 @Log4j2
 class TestCaseManagerListener extends AbstractRunListener {
+	def testRails = new TestRailsUtil()
     boolean testFailed
-	def testCase = [:]
-	def testCases = [[:]]
+	def result = [:]
+	def testResults = [[:]]
 
 	void beforeSpec(SpecInfo spec) {
 		log.info("starting Spec: $spec.name")
 		if (System.properties."example.testrunID") {
 			log.info("set test run ID: ${System.properties."example.testrunID"}")
 		} else {
+			log.info("get testcases")
+			def tests = testRails.getTestCases("automation")
 			log.info("create test run ID: ")
-			System.properties."example.testrunID" = "testRun12345"
+			System.properties."example.testrunID" = testRails.makeTestRun(tests)
 		}
 
 		super.beforeSpec(spec)
@@ -27,7 +31,7 @@ class TestCaseManagerListener extends AbstractRunListener {
 
 	void beforeFeature(FeatureInfo feature) {
         testFailed = false
-		testCase = [:]
+		result = [:]
         log.info("starting: $feature.name")
 		super.beforeFeature(feature)
      }
@@ -35,7 +39,7 @@ class TestCaseManagerListener extends AbstractRunListener {
     void error(ErrorInfo error) {
         testFailed = true
 		log.warn(error.exception)
-		testCase.'error' = error.exception
+		result.'error' = error.exception
 		super.error(error)
     }
 
@@ -51,20 +55,21 @@ class TestCaseManagerListener extends AbstractRunListener {
 		try {
 			def testCaseID = feature.featureMethod.getReflection().getAnnotation(com.example.util.TestCaseID.class).value()
 			log.info("test Case #: $testCaseID")
-			testCase.ID = testCaseID
-			testCase.status = testFailed ? "Failed" : "Passed"
+			result.ID = testCaseID
+			result.status = testFailed ? "Failed" : "Passed"
 
 
 		}
 		catch(java.lang.NullPointerException e){
 			log.info("test Case #: No testcase ID")
-			testCase = [:]
+			result = [:]
 		}
-		testCases.add(testCase)
+		testResults.add(result)
 		super.afterFeature(feature)
     }
     void afterSpec(SpecInfo spec) {
-		log.warn("tests sending to API: $testCases")
+		log.warn("tests sending to API: $testResults")
+		testRails.updateRunResults(System.properties."example.testrunID", testResults)
 		super.afterSpec(spec)
     }
 

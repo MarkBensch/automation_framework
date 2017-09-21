@@ -8,23 +8,24 @@ class TestRailsUtil {
 	def username
 	def passworda
 	def baseUrl
+	def project_id
 
 
-	String makeRun() {
-
+	String makeTestRun() {
+		return "testRun12345"
 	}
 
-	String makeRun(List testCases) {
-
+	String makeTestRun(List testCases) {
+		return "testRun12345"
 	}
 
 
 	List getTestCases() {
-
+		return [:]
 	}
 
-	List getTestCases(String filter) {
-
+	List getTestCases(def filter) {
+		return [:]
 	}
 
 	def updateRunResults(String runID, List<Map> testResults) {

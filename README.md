@@ -6,7 +6,7 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
     * ~~FireFox~~
     * ~~Chrome~~
     * ~~Edge~~
-    * IE?
+    * IE? - kind of implemented but not really there are some bugs that need to be worked out that i dont feel like doing because... IE.
     * ~~Safari~~
     * ~~Headless (HtmlUnitDriver)~~
 * Remote driver execution
@@ -20,11 +20,14 @@ This is a project I am writing so I do not need to reinvent the wheel everytime 
 * ~~Config File~~
 * Gradle cleanup --- really need to do this starting to get out of hand
 * API work 
+    * create Rest Class
+        * Get & Post methods
+        * Convenience methods 
     * not sure what this will be
 * database connection
 * test filtering
     * add a gradle condition to set the category filter.
-* logging
+* ~~logging~~
     * ~~logger is written~~
     * ~~work on getting it to write to file~~
 * ___Test Case Management API___ 
