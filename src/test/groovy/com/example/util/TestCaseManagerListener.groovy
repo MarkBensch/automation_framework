@@ -21,9 +21,9 @@ class TestCaseManagerListener extends AbstractRunListener {
 			log.info("set test run ID: ${System.properties."example.testrunID"}")
 		} else {
 			log.info("get testcases")
-			def tests = testRails.getTestCases("automation")
+		//	def tests = testRails.getTestCases("automation")
 			log.info("create test run ID: ")
-			System.properties."example.testrunID" = testRails.makeTestRun(tests)
+			System.properties."example.testrunID" = "ID" //testRails.makeTestRun(tests)
 		}
 
 		super.beforeSpec(spec)
